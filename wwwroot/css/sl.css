@@ -1,0 +1,288 @@
+﻿
+body {
+    background-color: mintcream;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #14532d;
+}
+
+
+
+.main-nav {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #e7f6ee;
+    border-bottom: 1px solid #c7e4cf;
+}
+
+    .main-nav a {
+        text-decoration: none;
+        padding: 10px 40px;
+        display: inline-block;
+        font-size: 17px;
+        color: black;
+        border-radius: 15px;
+        margin-left: 30px;
+        border: 1px solid #568259;
+        background-color: #fdfdfd;
+    }
+
+        .main-nav a:hover {
+            background-color: #568259;
+            color: white;
+        }
+
+
+.form-wrapper {
+    width: 100%;
+    text-align: center;
+    margin: 60px 0;
+}
+
+fieldset,
+.signup,
+.fieldset-ForgetPassword {
+    background-color: #ffffff;
+    width: 700px;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 40px 60px;
+    border-radius: 20px;
+    border: 1px solid #d1e5d3;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    font-size: 18px;
+}
+
+.fieldset-ForgetPassword {
+    width: 600px;
+}
+
+    fieldset h1,
+    .signup h1,
+    .fieldset-ForgetPassword h1 {
+        text-align: center;
+        color: #14532d;
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+fieldset h4,
+.signup h4 {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 0;
+    color: #14532d;
+}
+
+fieldset p,
+.signup p,
+.fieldset-ForgetPassword p {
+    font-size: 18px;
+}
+
+
+fieldset input[type="email"],
+fieldset input[type="password"],
+fieldset input[type="text"],
+.signup input[type="email"],
+.signup input[type="password"],
+.signup input[type="text"],
+.fieldset-ForgetPassword input[type="email"],
+.fieldset-ForgetPassword input[type="password"] {
+    width: 100%;
+    border: 1px solid #568259;
+    border-radius: 15px;
+    padding: 12px 24px;
+    font-size: 18px;
+    box-sizing: border-box;
+    margin-top: 8px;
+    color: #14532d;
+    text-align: left;
+}
+
+fieldset input::placeholder,
+.signup input::placeholder,
+.fieldset-ForgetPassword input::placeholder {
+    color: #8aa79b;
+    font-size: 17px;
+}
+
+
+.login-button,
+.signup-button,
+.fp-button,
+.fieldset-ForgetPassword input[type="button"],
+fieldset input[type="submit"],
+.signup input[type="submit"] {
+    display: block;
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid #568259;
+    background-color: #568259;
+    color: white;
+    font-size: 18px;
+    padding: 12px 0;
+    margin-top: 25px;
+    cursor: pointer;
+    text-align: center;
+}
+
+    .login-button:hover,
+    .signup-button:hover,
+    .fp-button:hover,
+    .fieldset-ForgetPassword input[type="button"]:hover,
+    fieldset input[type="submit"]:hover,
+    .signup input[type="submit"]:hover {
+        background-color: #14532d;
+    }
+
+
+.login-links {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+    .login-links .login-link {
+        display: inline-block;
+        margin: 0 10px;
+        font-size: 15px;
+        color: #055c0b;
+        text-decoration: none;
+    }
+
+        .login-links .login-link:hover {
+            text-decoration: underline;
+        }
+
+
+.fieldset-ForgetPassword p a,
+.signup-footer a,
+.signup-footer-small a {
+    color: #055c0b;
+    text-decoration: none;
+}
+
+    .fieldset-ForgetPassword p a:hover,
+    .signup-footer a:hover,
+    .signup-footer-small a:hover {
+        text-decoration: underline;
+    }
+
+.signup-footer,
+.signup-footer-small {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+
+.password-box {
+    background-color: #cbe8c9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #8ab48a;
+    margin: 25px auto;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+    .password-box h3 {
+        margin-bottom: 15px;
+        font-size: 22px;
+        font-weight: 600;
+        color: #1d4b2c;
+    }
+
+    .password-box ul {
+        text-align: left;
+        width: fit-content;
+        margin: 0 auto;
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+.signup-btn {
+    width: 90%;
+    max-width: 650px;
+    display: block;
+    margin: 20px auto 10px auto;
+    background-color: #4d7f52;
+    color: white;
+    font-size: 20px;
+    padding: 12px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.signup-bottom-text {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+    .signup-bottom-text a {
+        color: #1d4b2c;
+        text-decoration: none;
+    }
+
+        .signup-bottom-text a:hover {
+            text-decoration: underline;
+        }
+
+
+#fp-step1,
+#fp-step2 {
+    text-align: left;
+}
+
+#fp-step2 {
+    display: none;
+}
+
+
+
+.signup input[type="email"],
+.signup input[type="password"],
+.signup input[type="text"],
+.fieldset-ForgetPassword input[type="email"],
+.fieldset-ForgetPassword input[type="password"] {
+    padding: 12px 24px !important; 
+    width: 100% !important; 
+}
+
+.signup input[type="submit"],
+.signup .signup-button {
+    width: 100% !important;
+    padding: 12px 0 !important;
+    margin-left: 0 !important;
+}
+
+.fieldset-ForgetPassword input[type="button"],
+.fieldset-ForgetPassword input[type="submit"],
+.fieldset-ForgetPassword .fp-button {
+    width: 100% !important;
+    padding: 12px 0 !important;
+    margin-left: 0 !important;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 15px; 
+    border: 1px solid #568259;
+    border-radius: 15px;
+    font-size: 18px;
+    color: #054b09;
+    text-align: left;
+    box-sizing: border-box; 
+}
+
+    .input-field::placeholder {
+        color: #9bb89c;
+        font-size: 16px;
+    }
+
+

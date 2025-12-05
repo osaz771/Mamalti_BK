@@ -1,0 +1,138 @@
+﻿nav a {
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 40px;
+    display: inline-block;
+    font-size: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    border-radius: 15px;
+    margin-left: 30px;
+    border: 1px solid #568259;
+    margin-top: 10px;
+}
+
+    nav a:hover {
+        background-color: #568259;
+        color: mintcream;
+    }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: mintcream;
+}
+
+div h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 50px;
+    text-align: center;
+}
+
+.body-div {
+    background-color: #568259;
+    width: auto;
+    height: 350px;
+    position: relative;
+    top: 50px;
+    padding-top: 100px;
+}
+
+.div-circle {
+    background-color: #568259;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: mintcream;
+    margin: 60px 60px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.circles-container {
+    text-align: center;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.circle-item {
+    flex-basis: 280px;
+    color: #333;
+}
+
+    .circle-item h3 {
+        font-size: 22px;
+        color: #568259;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .circle-item p {
+        font-size: 16px;
+        color: #555;
+        line-height: 1.5;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+.content-section {
+    width: 80%;
+    margin: 40px auto;
+    font-family: system-ui, sans-serif;
+    opacity: 1;
+}
+
+.services-list {
+    margin-bottom: 40px;
+    font-size: 20px;
+    color: #14532d;
+}
+
+    .services-list li {
+        margin: 12px 0;
+    }
+
+.service-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+    .service-table th,
+    .service-table td {
+        border: 1px solid #333;
+        padding: 14px 16px;
+    }
+
+    .service-table th {
+        background: #568259;
+        color: #ffffff;
+    }
+
+    .service-table td {
+        background: #ffffff;
+        color: #14532d;
+    }
+
+    .body-div h1 {
+    color: white !important;
+    font-weight: 700;
+    text-align: center;
+    }
+
+    .body-div .subtitle {
+    color: white !important;
+    text-align: center;
+    font-size: 20px;
+    }
+
+     
+

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Mamalti</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Mamalti.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="~/css/sl.css" />
+</head>
+<body>
+
+    <nav class="main-nav">
+        <a asp-controller="Home" asp-action="About">About Us</a>
+        <a asp-controller="Home" asp-action="Index">Home</a>
+        <a asp-controller="Account" asp-action="Login">Log in</a>
+        <a asp-controller="Account" asp-action="Signup" id="signupbotton">Sign up</a>
+    </nav>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <a asp-controller="Home" asp-action="About">
+        <img src="~/images/about.jpg"
+             style="position: fixed; bottom: 20px; right: 20px; width: 120px; height: auto;" />
+    </a>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="~/js/mamalti.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

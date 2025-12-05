@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-wrapper">
+    <form onsubmit="return handleLogin();">
+        <fieldset>
+
+            <h1>Log in</h1>
+            <h4>Welcome back</h4>
+            <p style="color: grey; font-size: 20px; margin-bottom: 30px; text-align: center;">
+                Sign in to continue and access services
+            </p>
+
+            <p>
+                E-mail address <br />
+                <input id="login-email"
+                       type="email"
+                       placeholder="YourE-mail@example.com" />
+            </p>
+
+            <p style="margin-bottom: 50px;">
+                Password <br />
+                <input id="login-password"
+                       type="password"
+                       placeholder="********" />
+            </p>
+
+            <div class="login-links">
+                <a asp-controller="Account" asp-action="ForgetPassword" class="login-link">
+                    Forget Password?
+                </a>
+
+                <a asp-controller="Account" asp-action="Signup" class="login-link">
+                    Create an account
+                </a>
+
+                <a asp-controller="Home" asp-action="About" class="login-link">
+                    about us
+                </a>
+            </div>
+
+            <input type="submit" value="login" class="login-button" />
+
+        </fieldset>
+    </form>
+</div>

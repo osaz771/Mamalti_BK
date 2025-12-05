@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Sign up";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-wrapper">
+    <form onsubmit="return handleSignup();">
+        <fieldset class="signup">
+
+            <h1>Create a new account</h1>
+            <h4>
+                join Mamalti now and start managing your transaction easily
+            </h4>
+
+            <h3 style="margin-top:40px; margin-bottom:20px;">Account information:</h3>
+
+            <p>
+                Full name <br />
+                <input id="signup-fullname" type="text"
+                       placeholder="Enter your Full-name" />
+            </p>
+
+            <p>
+                E-mail address <br />
+                <input id="signup-email" type="email"
+                       placeholder="YourE-mail@example.com" />
+            </p>
+
+            <p>
+                Phone number <br />
+                <input id="signup-phone" type="text"
+                       placeholder="+966#########" />
+            </p>
+
+            <p>
+                Password <br />
+                <input id="signup-password" type="password"
+                       placeholder="********" />
+            </p>
+
+            <p>
+                confirm password <br />
+                <input id="signup-confirm" type="password"
+                       placeholder="********" />
+            </p>
+
+            <div class="password-box">
+                <h3>Password requirements</h3>
+                <ul>
+                    <li>At least 8 characters</li>
+                    <li>At least 1 uppercase letter (A–Z)</li>
+                    <li>At least 1 lowercase letter (a–z)</li>
+                    <li>At least 1 number (1–9)</li>
+                </ul>
+            </div>
+
+            <button type="submit" class="signup-btn">Sign up</button>
+
+            <div class="signup-bottom-text">
+                Already have an account?
+                <a asp-controller="Account" asp-action="Login">Log in</a>
+                <br />
+                <a asp-controller="Home" asp-action="About">learn more about us</a>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
