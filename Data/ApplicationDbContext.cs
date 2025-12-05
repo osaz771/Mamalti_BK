@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Mamalti.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Mamalti.Data
@@ -9,5 +10,7 @@ namespace Mamalti.Data
             : base(options)
         {
         }
+
+        public DbSet<ApplicationUser> Users { get; set; }
     }
 }

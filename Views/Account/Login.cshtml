@@ -4,11 +4,23 @@
 }
 
 <div class="form-wrapper">
-    <form onsubmit="return handleLogin();">
+    <form asp-controller="Account" asp-action="Login" method="post">
         <fieldset>
 
             <h1>Log in</h1>
             <h4>Welcome back</h4>
+
+            @* لو فيه رسالة (خطأ في الدخول مثلاً) نعرضها *@
+            @if (ViewBag.Message != null)
+            {
+                <p style="color:red; text-align:center;">@ViewBag.Message</p>
+            }
+
+            @if (ViewBag.InfoMessage != null)
+            {
+                <p style="color:green; text-align:center;">@ViewBag.InfoMessage</p>
+            }
+
             <p style="color: grey; font-size: 20px; margin-bottom: 30px; text-align: center;">
                 Sign in to continue and access services
             </p>
@@ -16,15 +28,19 @@
             <p>
                 E-mail address <br />
                 <input id="login-email"
+                       name="email"
                        type="email"
-                       placeholder="YourE-mail@example.com" />
+                       placeholder="YourE-mail@example.com"
+                       class="input-field" />
             </p>
 
             <p style="margin-bottom: 50px;">
                 Password <br />
                 <input id="login-password"
+                       name="password"
                        type="password"
-                       placeholder="********" />
+                       placeholder="********"
+                       class="input-field" />
             </p>
 
             <div class="login-links">

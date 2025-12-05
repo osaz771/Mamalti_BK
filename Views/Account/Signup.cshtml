@@ -4,7 +4,7 @@
 }
 
 <div class="form-wrapper">
-    <form onsubmit="return handleSignup();">
+    <form asp-controller="Account" asp-action="Signup" method="post">
         <fieldset class="signup">
 
             <h1>Create a new account</h1>
@@ -16,31 +16,31 @@
 
             <p>
                 Full name <br />
-                <input id="signup-fullname" type="text"
+                <input id="signup-fullname" name="fullName" type="text"
                        placeholder="Enter your Full-name" />
             </p>
 
             <p>
                 E-mail address <br />
-                <input id="signup-email" type="email"
+                <input id="signup-email" name="email" type="email"
                        placeholder="YourE-mail@example.com" />
             </p>
 
             <p>
                 Phone number <br />
-                <input id="signup-phone" type="text"
+                <input id="signup-phone" name="phone" type="text"
                        placeholder="+966#########" />
             </p>
 
             <p>
                 Password <br />
-                <input id="signup-password" type="password"
+                <input id="signup-password" name="password" type="password"
                        placeholder="********" />
             </p>
 
             <p>
                 confirm password <br />
-                <input id="signup-confirm" type="password"
+                <input id="signup-confirm" name="confirmPassword" type="password"
                        placeholder="********" />
             </p>
 
