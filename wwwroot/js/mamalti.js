@@ -88,3 +88,34 @@ function changePassword() {
 
     return false;
 }
+
+function validateSignup() {
+    var fullName = document.getElementById("signup-fullname").value.trim();
+    var email = document.getElementById("signup-email").value.trim();
+    var phone = document.getElementById("signup-phone").value.trim();
+    var password = document.getElementById("signup-password").value;
+    var confirmPassword = document.getElementById("signup-confirm").value;
+
+    if (fullName === "" || email === "" || phone === "" || password === "" || confirmPassword === "") {
+        alert("Please fill in all fields.");
+        return false;
+    }
+
+    if (email.indexOf("@") === -1 || email.indexOf(".") === -1) {
+        alert("Please enter a valid e-mail address.");
+        return false;
+    }
+
+    if (password.length < 8) {
+        alert("Password must be at least 8 characters.");
+        return false;
+    }
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return false;
+    }
+
+    return true;
+}
+

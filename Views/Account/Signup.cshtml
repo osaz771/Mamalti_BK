@@ -3,8 +3,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/js/mamalti.js"></script>
+
 <div class="form-wrapper">
-    <form asp-controller="Account" asp-action="Signup" method="post">
+    <form asp-controller="Account" asp-action="Signup" method="post" onsubmit="return validateSignup();">
         <fieldset class="signup">
 
             <h1>Create a new account</h1>

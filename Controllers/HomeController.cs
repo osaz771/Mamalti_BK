@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Mamalti.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;   // ✅ مهم للـ Session
+using Microsoft.AspNetCore.Http;
 
 namespace Mamalti.Controllers
 {
@@ -16,14 +16,12 @@ namespace Mamalti.Controllers
 
         public IActionResult Index()
         {
-            // ✅ حماية صفحة الهوم: لو ما فيه مستخدم مسجل → يرجع لصفحة اللوقن
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserEmail")))
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            // لو حاب تستخدم اسم المستخدم في الصفحة
-            ViewBag.UserName = HttpContext.Session.GetString("UserName");
+            ViewBag.UserName = HttpContext.Session.GetString("UserName") ?? "User";
 
             return View();
         }

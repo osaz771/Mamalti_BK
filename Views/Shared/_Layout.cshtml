@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,12 +15,25 @@
     <link rel="stylesheet" href="~/css/sl.css" />
 </head>
 <body>
+    @{
+        var userName = Context.Session.GetString("UserName");
+        bool isLoggedIn = !string.IsNullOrEmpty(userName);
+    }
 
     <nav class="main-nav">
         <a asp-controller="Home" asp-action="About">About Us</a>
         <a asp-controller="Home" asp-action="Index">Home</a>
-        <a asp-controller="Account" asp-action="Login">Log in</a>
-        <a asp-controller="Account" asp-action="Signup" id="signupbotton">Sign up</a>
+
+        @if (isLoggedIn)
+        {
+            <a asp-controller="Account" asp-action="Logout">Logout</a>
+
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login">Log in</a>
+            <a asp-controller="Account" asp-action="Signup" id="signupbotton">Sign up</a>
+        }
     </nav>
 
     <main role="main">

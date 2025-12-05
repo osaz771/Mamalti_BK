@@ -219,19 +219,26 @@ fieldset input[type="submit"],
 }
 
 .signup-bottom-text {
+    margin-top: 20px;
     text-align: center;
-    margin-top: 10px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
     .signup-bottom-text a {
-        color: #1d4b2c;
+        color: #055c0b;
         text-decoration: none;
+        margin: 0 4px;
     }
 
         .signup-bottom-text a:hover {
             text-decoration: underline;
         }
+
+.link-separator {
+    margin: 0 6px;
+    color: #055c0b;
+}
+
 
 
 #fp-step1,

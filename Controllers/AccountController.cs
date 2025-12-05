@@ -49,6 +49,7 @@ namespace Mamalti.Controllers
             _context.SaveChanges();
 
             TempData["ResetMessage"] = $"Welcome {user.FullName}, you can now log in.";
+
             return RedirectToAction("Login");
         }
 
@@ -80,65 +81,48 @@ namespace Mamalti.Controllers
         [HttpGet]
         public IActionResult ForgetPassword()
         {
+            ViewBag.Message = TempData["ResetMessage"];
             return View();
         }
 
         [HttpPost]
-        public IActionResult ForgetPassword(string email)
+        public IActionResult ForgetPassword(string email, string code, string newPassword, string confirmPassword)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email == email);
-
             if (user == null)
             {
                 ViewBag.Message = "E-mail not found";
                 return View();
             }
 
-            TempData["ResetEmail"] = email;
-            return RedirectToAction("ResetPassword");
-        }
-
-        [HttpGet]
-        public IActionResult ResetPassword()
-        {
-            var email = TempData["ResetEmail"] as string;
-
-            if (string.IsNullOrEmpty(email))
+            if (!string.IsNullOrEmpty(newPassword))
             {
-                return RedirectToAction("ForgetPassword");
+                if (newPassword != confirmPassword)
+                {
+                    ViewBag.Message = "Passwords do not match";
+                    ViewBag.ShowResetForm = true;
+                    ViewBag.Email = email;
+                    return View();
+                }
+
+                user.Password = newPassword;
+                _context.SaveChanges();
+                TempData["ResetMessage"] = "Password changed successfully. You can log in now.";
+                return RedirectToAction("Login");
             }
 
+            ViewBag.ShowResetForm = true;
             ViewBag.Email = email;
             return View();
         }
 
         [HttpPost]
-        public IActionResult ResetPassword(string email, string newPassword, string confirmPassword)
-        {
-            if (newPassword != confirmPassword)
-            {
-                ViewBag.Email = email;
-                ViewBag.Message = "Passwords do not match";
-                return View();
-            }
-
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
-            if (user == null)
-            {
-                return RedirectToAction("ForgetPassword");
-            }
-
-            user.Password = newPassword;
-            _context.SaveChanges();
-
-            TempData["ResetMessage"] = "Password changed successfully. Please log in.";
-            return RedirectToAction("Login");
-        }
-
+        [HttpGet]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
+
     }
 }
