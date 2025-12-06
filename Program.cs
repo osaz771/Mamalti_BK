@@ -10,7 +10,6 @@ namespace Mamalti
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -22,15 +21,13 @@ namespace Mamalti
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            // ✅ نضيف دعم الـ Session
-            builder.Services.AddDistributedMemoryCache();   // كاش بالذاكرة للسيشن
-            builder.Services.AddSession();                  // تسجيل خدمة السيشن
+            builder.Services.AddDistributedMemoryCache();   
+            builder.Services.AddSession();                  
 
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
@@ -46,7 +43,6 @@ namespace Mamalti
 
             app.UseRouting();
 
-            // ✅ تفعيل الـ Session في البايلن
             app.UseSession();
 
             app.UseAuthorization();
