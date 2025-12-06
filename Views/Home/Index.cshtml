@@ -1,26 +1,38 @@
 ﻿@{
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var userName = ViewBag.UserName as string ?? "User";
+
+    var sessionName = ViewBag.UserName as string;  
+    var cookieName = ViewBag.LastUser as string;    
 }
 
-<div id="welcome-container" data-username="@userName" style="text-align:center; margin-top:20px;">
+<div id="welcome-container" style="text-align:center; margin-top:20px;">
     <h2 id="welcome-text"></h2>
 </div>
 
 <script>
     window.onload = function () {
-        var container = document.getElementById("welcome-container");
-        var welcomeElement = document.getElementById("welcome-text");
 
-        if (!container || !welcomeElement) {
-            return;
+        var sessionName = "@sessionName";
+        var cookieName = "@cookieName";
+
+        var finalName = "";
+
+        if (sessionName && sessionName.trim() !== "") {
+            finalName = sessionName;
+        }
+        else if (cookieName && cookieName.trim() !== "") {
+            finalName = cookieName;
+        }
+        else {
+            finalName = "User";
         }
 
-        var name = container.getAttribute("data-username") || "User";
-        welcomeElement.textContent = "Welcome " + name;
+        document.getElementById("welcome-text").textContent =
+            "Welcome " + finalName;
     };
 </script>
+
 
 <section class="body-div">
     <h1 class="main-title">

@@ -15,6 +15,8 @@ namespace Mamalti.Controllers
             _context = context;
         }
 
+        // ========== SIGN UP ==========
+
         [HttpGet]
         public IActionResult Signup()
         {
@@ -53,6 +55,8 @@ namespace Mamalti.Controllers
             return RedirectToAction("Login");
         }
 
+        // ========== LOGIN ==========
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -74,9 +78,12 @@ namespace Mamalti.Controllers
 
             HttpContext.Session.SetString("UserEmail", user.Email);
             HttpContext.Session.SetString("UserName", user.FullName);
+            Response.Cookies.Append("LastUser", user.FullName);
+
 
             return RedirectToAction("Index", "Home");
         }
+
 
         [HttpGet]
         public IActionResult ForgetPassword()
@@ -116,13 +123,81 @@ namespace Mamalti.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        public IActionResult ManageUsers(string search)
+        {
+            var users = _context.Users.ToList();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                users = users
+                    .Where(u =>
+                        u.FullName.Contains(search) ||
+                        u.Email.Contains(search) ||
+                        u.Phone.Contains(search))
+                    .ToList();
+            }
+
+            ViewBag.Search = search;
+
+            return View(users);
+        }
+
+
+        [HttpGet]
+        public IActionResult EditUser(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult EditUser(int id, string fullName, string email, string phone)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.FullName = fullName;
+            user.Email = email;
+            user.Phone = phone;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ManageUsers");
+        }
+
+
+        public IActionResult DeleteUser(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+
+            return RedirectToAction("ManageUsers");
+        }
+
+
         [HttpPost]
         [HttpGet]
         public IActionResult Logout()
         {
+            Response.Cookies.Delete("LastUser");
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
-
     }
 }

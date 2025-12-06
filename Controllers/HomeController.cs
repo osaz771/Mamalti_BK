@@ -22,6 +22,7 @@ namespace Mamalti.Controllers
             }
 
             ViewBag.UserName = HttpContext.Session.GetString("UserName") ?? "User";
+            ViewBag.LastUser = Request.Cookies["LastUser"];
 
             return View();
         }

@@ -1,0 +1,52 @@
+﻿@model Mamalti.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-wrapper">
+    <form asp-action="EditUser" method="post">
+        <fieldset class="signup">
+
+            <h1>Edit User</h1>
+
+            <input type="hidden" name="id" value="@Model.Id" />
+
+            <p>
+                Full name <br />
+                <input name="fullName"
+                       class="input-field"
+                       value="@Model.FullName"
+                       placeholder="Enter full name" />
+            </p>
+
+            <p>
+                E-mail address <br />
+                <input name="email"
+                       class="input-field"
+                       value="@Model.Email"
+                       placeholder="YourE-mail@example.com" />
+            </p>
+
+            <p>
+                Phone number <br />
+                <input name="phone"
+                       class="input-field"
+                       value="@Model.Phone"
+                       placeholder="+966#########" />
+            </p>
+
+            <button type="submit" class="signup-btn">
+                Save Changes
+            </button>
+
+            <div class="signup-bottom-text">
+                <a asp-controller="Account" asp-action="ManageUsers">
+                    Back to list
+                </a>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
