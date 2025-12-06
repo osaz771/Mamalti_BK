@@ -11,9 +11,52 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Mamalti.styles.css" asp-append-version="true" />
-
     <link rel="stylesheet" href="~/css/index.css" />
     <link rel="stylesheet" href="~/css/sl.css" />
+
+    <style>
+        .about-floating {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            z-index: 9999;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+            .about-floating:hover {
+                transform: scale(1.08);
+                box-shadow: 0 10px 18px rgba(0, 0, 0, 0.30);
+            }
+
+        .nav-logout-form {
+            display: inline-block;
+            margin-left: 15px;
+        }
+
+        .nav-logout-btn {
+            padding: 10px 40px;
+            border-radius: 15px;
+            border: 1px solid #568259;
+            background-color: #f8fff8;
+            color: #155b2b;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+            .nav-logout-btn:hover {
+                background-color: #568259;
+                color: #ffffff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+    </style>
 </head>
 <body>
     @{
@@ -27,8 +70,9 @@
 
         @if (isLoggedIn)
         {
-            <a asp-controller="Account" asp-action="Logout">Logout</a>
-
+            <form asp-controller="Account" asp-action="Logout" method="post" class="nav-logout-form">
+                <button type="submit" class="nav-logout-btn">Logout</button>
+            </form>
         }
         else
         {
@@ -42,14 +86,12 @@
     </main>
 
     <a asp-controller="Home" asp-action="About">
-        <img src="~/images/about.jpg"
-             style="position: fixed; bottom: 20px; right: 20px; width: 120px; height: auto;" />
+        <img src="~/images/about.jpg" alt="About us" class="about-floating" />
     </a>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     <script src="~/js/mamalti.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
