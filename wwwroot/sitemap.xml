@@ -6,27 +6,7 @@
 	</url>
 
 	<url>
-		<loc>https://localhost:7001/Home/Index</loc>
-	</url>
-
-	<url>
-		<loc>https://localhost:7001/Account/Login</loc>
-	</url>
-
-	<url>
-		<loc>https://localhost:7001/Account/Signup</loc>
-	</url>
-
-	<url>
-		<loc>https://localhost:7001/Account/ForgetPassword</loc>
-	</url>
-
-	<url>
 		<loc>https://localhost:7001/Home/About</loc>
-	</url>
-
-	<url>
-		<loc>https://localhost:7001/Account/ManageUsers</loc>
 	</url>
 
 </urlset>

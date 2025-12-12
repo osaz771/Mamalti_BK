@@ -21,8 +21,16 @@ namespace Mamalti
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            builder.Services.AddDistributedMemoryCache();   
-            builder.Services.AddSession();                  
+            builder.Services.AddDistributedMemoryCache();
+
+            // ✅ Session options (مثل السلايدات)
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(300); // 5 mins
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+            });
 
             builder.Services.AddControllersWithViews();
 
@@ -43,9 +51,12 @@ namespace Mamalti
 
             app.UseRouting();
 
-            app.UseSession();
-
+            // ✅ لازم تضيفها
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            // ✅ خليها بعد UseAuthorization
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",

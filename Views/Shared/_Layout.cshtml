@@ -66,10 +66,11 @@
 
     <nav class="main-nav">
         <a asp-controller="Home" asp-action="About">About Us</a>
-        <a asp-controller="Home" asp-action="Index">Home</a>
 
         @if (isLoggedIn)
         {
+            <a asp-controller="Home" asp-action="Index">Home</a>
+
             <form asp-controller="Account" asp-action="Logout" method="post" class="nav-logout-form">
                 <button type="submit" class="nav-logout-btn">Logout</button>
             </form>

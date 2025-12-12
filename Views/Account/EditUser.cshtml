@@ -6,10 +6,17 @@
 }
 
 <div class="form-wrapper">
-    <form asp-action="EditUser" method="post">
+    <form asp-controller="Account" asp-action="EditUser" method="post" novalidate>
         <fieldset class="signup">
 
             <h1>Edit User</h1>
+
+            @if (ViewBag.Message != null)
+            {
+                <p style="color:#c0392b; text-align:center; margin-bottom:20px;">
+                    @ViewBag.Message
+                </p>
+            }
 
             <input type="hidden" name="id" value="@Model.Id" />
 
@@ -24,6 +31,7 @@
             <p>
                 E-mail address <br />
                 <input name="email"
+                       type="email"
                        class="input-field"
                        value="@Model.Email"
                        placeholder="YourE-mail@example.com" />

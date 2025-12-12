@@ -22,7 +22,6 @@
     </button>
 </form>
 
-
 <table style="width: 90%; margin: 0 auto; border-collapse: collapse; font-size: 16px;">
     <thead>
         <tr style="background-color: #568259; color: white;">
@@ -56,16 +55,21 @@
                     </td>
 
                     <td style="border: 1px solid #ccc; padding: 8px; text-align:center;">
+
                         <a asp-controller="Account" asp-action="EditUser" asp-route-id="@user.Id"
                            style="padding:6px 12px; background:#4b7c50; color:white; border-radius:8px; text-decoration:none;">
                             Edit
                         </a>
 
-                        <a asp-controller="Account" asp-action="DeleteUser" asp-route-id="@user.Id"
-                           onclick="return confirm('Are you sure you want to delete this user?');"
-                           style="padding:6px 12px; background:#c0392b; color:white; border-radius:8px; text-decoration:none; margin-left:8px;">
-                            Delete
-                        </a>
+                        <form asp-controller="Account" asp-action="DeleteUser" asp-route-id="@user.Id"
+                              method="post" style="display:inline;">
+                            <button type="submit"
+                                    onclick="return confirm('Are you sure you want to delete this user?');"
+                                    style="padding:6px 12px; background:#c0392b; color:white; border:none; border-radius:8px; cursor:pointer; margin-left:8px;">
+                                Delete
+                            </button>
+                        </form>
+
                     </td>
                 </tr>
             }

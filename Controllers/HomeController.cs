@@ -14,12 +14,15 @@ namespace Mamalti.Controllers
             _logger = logger;
         }
 
+        private bool IsLoggedIn()
+        {
+            return !string.IsNullOrEmpty(HttpContext.Session.GetString("UserEmail"));
+        }
+
         public IActionResult Index()
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserEmail")))
-            {
+            if (!IsLoggedIn())
                 return RedirectToAction("Login", "Account");
-            }
 
             ViewBag.UserName = HttpContext.Session.GetString("UserName") ?? "User";
             ViewBag.LastUser = Request.Cookies["LastUser"];
@@ -29,9 +32,13 @@ namespace Mamalti.Controllers
 
         public IActionResult Privacy()
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
             return View();
         }
 
+        // ✅ About صفحة عامة
         public IActionResult About()
         {
             return View();

@@ -3,8 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="~/js/mamalti.js"></script>
-
 <div class="form-wrapper">
     <form asp-controller="Account" asp-action="Signup" method="post" onsubmit="return validateSignup();">
         <fieldset class="signup">
@@ -19,31 +17,46 @@
             <p>
                 Full name <br />
                 <input id="signup-fullname" name="fullName" type="text"
-                       placeholder="Enter your Full-name" />
+                       placeholder="Enter your Full-name"
+                       class="input-field"
+                       required
+                       autocomplete="name" />
             </p>
 
             <p>
                 E-mail address <br />
                 <input id="signup-email" name="email" type="email"
-                       placeholder="YourE-mail@example.com" />
+                       placeholder="YourE-mail@example.com"
+                       class="input-field"
+                       required
+                       autocomplete="email" />
             </p>
 
             <p>
                 Phone number <br />
                 <input id="signup-phone" name="phone" type="text"
-                       placeholder="+966#########" />
+                       placeholder="+966#########"
+                       class="input-field"
+                       required
+                       autocomplete="tel" />
             </p>
 
             <p>
                 Password <br />
                 <input id="signup-password" name="password" type="password"
-                       placeholder="********" />
+                       placeholder="********"
+                       class="input-field"
+                       required
+                       autocomplete="new-password" />
             </p>
 
             <p>
                 confirm password <br />
                 <input id="signup-confirm" name="confirmPassword" type="password"
-                       placeholder="********" />
+                       placeholder="********"
+                       class="input-field"
+                       required
+                       autocomplete="new-password" />
             </p>
 
             <div class="password-box">
@@ -68,3 +81,5 @@
         </fieldset>
     </form>
 </div>
+
+<script src="~/js/mamalti.js"></script>

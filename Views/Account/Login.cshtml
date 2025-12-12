@@ -4,7 +4,7 @@
 }
 
 <div class="form-wrapper">
-    <form asp-controller="Account" asp-action="Login" method="post">
+    <form asp-controller="Account" asp-action="Login" method="post" onsubmit="return handleLogin();">
         <fieldset>
 
             <h1>Log in</h1>
@@ -30,7 +30,9 @@
                        name="email"
                        type="email"
                        placeholder="YourE-mail@example.com"
-                       class="input-field" />
+                       class="input-field"
+                       required
+                       autocomplete="email" />
             </p>
 
             <p style="margin-bottom: 50px;">
@@ -39,7 +41,9 @@
                        name="password"
                        type="password"
                        placeholder="********"
-                       class="input-field" />
+                       class="input-field"
+                       required
+                       autocomplete="current-password" />
             </p>
 
             <div class="login-links">
@@ -52,7 +56,7 @@
                 </a>
 
                 <a asp-controller="Home" asp-action="About" class="login-link">
-                    about us
+                    About us
                 </a>
             </div>
 

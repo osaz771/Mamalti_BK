@@ -1,61 +1,67 @@
-﻿
+﻿/* =========================
+   SIGN UP VALIDATION
+   ========================= */
 function handleSignup() {
 
-    var fullName = document.getElementById("signup-fullname").value;
-    var email = document.getElementById("signup-email").value;
+    var fullName = document.getElementById("signup-fullname").value.trim();
+    var email = document.getElementById("signup-email").value.trim();
     var password = document.getElementById("signup-password").value;
     var confirmPassword = document.getElementById("signup-confirm").value;
 
-    if (fullName == "") {
+    if (fullName === "") {
         alert("Full name must be filled out");
-        return false; 
+        return false;
     }
 
-    if (email == "") {
+    if (email === "") {
         alert("E-mail address must be filled out");
         return false;
     }
 
-    if (password == "" || confirmPassword == "") {
+    if (password === "" || confirmPassword === "") {
         alert("Password fields must be filled out");
         return false;
     }
 
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
         alert("Passwords do not match");
         return false;
     }
 
-    alert("Welcome " + fullName + " , your account has been created.");
-
-    return false;
+    // ✅ allow submit to server
+    return true;
 }
 
+/* =========================
+   LOGIN VALIDATION
+   ========================= */
 function handleLogin() {
 
-    var email = document.getElementById("login-email").value;
+    var email = document.getElementById("login-email").value.trim();
     var password = document.getElementById("login-password").value;
 
-    if (email == "") {
+    if (email === "") {
         alert("Please enter your e-mail address");
         return false;
     }
 
-    if (password == "") {
+    if (password === "") {
         alert("Please enter your password");
         return false;
     }
 
-    alert("Welcome back to Muamalati Platform!");
-
-    return false;
+    // ✅ allow submit to server
+    return true;
 }
 
+/* =========================
+   FORGET PASSWORD – STEP 1
+   ========================= */
 function sendCode() {
 
-    var email = document.getElementById("fp-email").value;
+    var email = document.getElementById("fp-email").value.trim();
 
-    if (email == "") {
+    if (email === "") {
         alert("Please enter your e-mail address");
         return false;
     }
@@ -65,31 +71,37 @@ function sendCode() {
     document.getElementById("fp-step1").style.display = "none";
     document.getElementById("fp-step2").style.display = "block";
 
+    // ❗ stay on page
     return false;
 }
 
+/* =========================
+   FORGET PASSWORD – STEP 2
+   ========================= */
 function changePassword() {
 
     var newPass = document.getElementById("fp-newpass").value;
     var confirmPass = document.getElementById("fp-confirmpass").value;
 
-    if (newPass == "" || confirmPass == "") {
+    if (newPass === "" || confirmPass === "") {
         alert("Password fields cannot be empty");
         return false;
     }
 
-    if (newPass != confirmPass) {
+    if (newPass !== confirmPass) {
         alert("Passwords do not match");
         return false;
     }
 
-    alert("Password changed successfully. You can log in with your new password.");
-
-
-    return false;
+    // ✅ allow submit to server
+    return true;
 }
 
+/* =========================
+   EXTRA SIGNUP VALIDATION
+   ========================= */
 function validateSignup() {
+
     var fullName = document.getElementById("signup-fullname").value.trim();
     var email = document.getElementById("signup-email").value.trim();
     var phone = document.getElementById("signup-phone").value.trim();
@@ -119,31 +131,23 @@ function validateSignup() {
     return true;
 }
 
+/* =========================
+   COOKIE FUNCTIONS
+   ========================= */
 function writeCookie(name, value, days) {
+
     var expires = "";
+
     if (days) {
         var date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
+
     document.cookie = name + "=" + value + expires + "; path=/";
 }
 
 function readCookie(name) {
+
     var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) === ' ')
-            c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0)
-            return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-function eraseCookie(name) {
-    document.cookie = name + "=; Max-Age=-99999999;";
-}
-
-
+    var ca = document.cook

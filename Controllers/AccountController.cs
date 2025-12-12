@@ -2,6 +2,7 @@
 using Mamalti.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System.Linq;
 
 namespace Mamalti.Controllers
@@ -9,10 +10,22 @@ namespace Mamalti.Controllers
     public class AccountController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly PasswordHasher<ApplicationUser> _hasher = new PasswordHasher<ApplicationUser>();
 
         public AccountController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        // ✅ Helper: session check
+        private bool IsLoggedIn()
+        {
+            return !string.IsNullOrEmpty(HttpContext.Session.GetString("UserEmail"));
+        }
+
+        private string NormalizeEmail(string email)
+        {
+            return (email ?? "").Trim().ToLower();
         }
 
         // ========== SIGN UP ==========
@@ -26,13 +39,24 @@ namespace Mamalti.Controllers
         [HttpPost]
         public IActionResult Signup(string fullName, string email, string phone, string password, string confirmPassword)
         {
+            fullName = (fullName ?? "").Trim();
+            email = NormalizeEmail(email);
+            phone = (phone ?? "").Trim();
+
+            if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phone) ||
+                string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
+            {
+                ViewBag.Message = "Please fill in all fields";
+                return View();
+            }
+
             if (password != confirmPassword)
             {
                 ViewBag.Message = "Passwords do not match";
                 return View();
             }
 
-            bool exists = _context.Users.Any(u => u.Email == email);
+            bool exists = _context.Users.Any(u => u.Email.ToLower() == email);
             if (exists)
             {
                 ViewBag.Message = "Email already exists";
@@ -43,15 +67,16 @@ namespace Mamalti.Controllers
             {
                 FullName = fullName,
                 Email = email,
-                Phone = phone,
-                Password = password
+                Phone = phone
             };
+
+            // ✅ Hash password before saving
+            user.Password = _hasher.HashPassword(user, password);
 
             _context.Users.Add(user);
             _context.SaveChanges();
 
             TempData["ResetMessage"] = $"Welcome {user.FullName}, you can now log in.";
-
             return RedirectToAction("Login");
         }
 
@@ -67,10 +92,18 @@ namespace Mamalti.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
-            var user = _context.Users
-                .FirstOrDefault(u => u.Email == email && u.Password == password);
+            email = NormalizeEmail(email);
 
+            var user = _context.Users.FirstOrDefault(u => u.Email.ToLower() == email);
             if (user == null)
+            {
+                ViewBag.Message = "Invalid email or password";
+                return View();
+            }
+
+            // ✅ Verify hashed password
+            var result = _hasher.VerifyHashedPassword(user, user.Password, password);
+            if (result == PasswordVerificationResult.Failed)
             {
                 ViewBag.Message = "Invalid email or password";
                 return View();
@@ -80,10 +113,10 @@ namespace Mamalti.Controllers
             HttpContext.Session.SetString("UserName", user.FullName);
             Response.Cookies.Append("LastUser", user.FullName);
 
-
             return RedirectToAction("Index", "Home");
         }
 
+        // ========== FORGET PASSWORD ==========
 
         [HttpGet]
         public IActionResult ForgetPassword()
@@ -95,7 +128,9 @@ namespace Mamalti.Controllers
         [HttpPost]
         public IActionResult ForgetPassword(string email, string code, string newPassword, string confirmPassword)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+            email = NormalizeEmail(email);
+
+            var user = _context.Users.FirstOrDefault(u => u.Email.ToLower() == email);
             if (user == null)
             {
                 ViewBag.Message = "E-mail not found";
@@ -112,8 +147,10 @@ namespace Mamalti.Controllers
                     return View();
                 }
 
-                user.Password = newPassword;
+                // ✅ Hash new password before saving
+                user.Password = _hasher.HashPassword(user, newPassword);
                 _context.SaveChanges();
+
                 TempData["ResetMessage"] = "Password changed successfully. You can log in now.";
                 return RedirectToAction("Login");
             }
@@ -123,36 +160,39 @@ namespace Mamalti.Controllers
             return View();
         }
 
+        // ========== MANAGE USERS (Protected) ==========
 
         [HttpGet]
         public IActionResult ManageUsers(string search)
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login");
+
             var users = _context.Users.ToList();
 
             if (!string.IsNullOrEmpty(search))
             {
+                search = search.Trim();
                 users = users
                     .Where(u =>
-                        u.FullName.Contains(search) ||
-                        u.Email.Contains(search) ||
-                        u.Phone.Contains(search))
+                        (u.FullName != null && u.FullName.Contains(search)) ||
+                        (u.Email != null && u.Email.Contains(search)) ||
+                        (u.Phone != null && u.Phone.Contains(search)))
                     .ToList();
             }
 
             ViewBag.Search = search;
-
             return View(users);
         }
-
 
         [HttpGet]
         public IActionResult EditUser(int id)
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login");
+
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            if (user == null) return NotFound();
 
             return View(user);
         }
@@ -160,10 +200,29 @@ namespace Mamalti.Controllers
         [HttpPost]
         public IActionResult EditUser(int id, string fullName, string email, string phone)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
-            if (user == null)
+            if (!IsLoggedIn())
+                return RedirectToAction("Login");
+
+            fullName = (fullName ?? "").Trim();
+            email = NormalizeEmail(email);
+            phone = (phone ?? "").Trim();
+
+            if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phone))
             {
-                return NotFound();
+                ViewBag.Message = "Please fill in all fields";
+                var current = _context.Users.FirstOrDefault(u => u.Id == id);
+                return View(current);
+            }
+
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            if (user == null) return NotFound();
+
+            // ✅ منع تكرار الإيميل على مستخدم ثاني
+            bool emailTaken = _context.Users.Any(u => u.Id != id && u.Email.ToLower() == email);
+            if (emailTaken)
+            {
+                ViewBag.Message = "Email already exists";
+                return View(user);
             }
 
             user.FullName = fullName;
@@ -171,18 +230,18 @@ namespace Mamalti.Controllers
             user.Phone = phone;
 
             _context.SaveChanges();
-
             return RedirectToAction("ManageUsers");
         }
 
-
+        // ✅ Delete should be POST
+        [HttpPost]
         public IActionResult DeleteUser(int id)
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login");
+
             var user = _context.Users.FirstOrDefault(u => u.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            if (user == null) return NotFound();
 
             _context.Users.Remove(user);
             _context.SaveChanges();
@@ -190,9 +249,8 @@ namespace Mamalti.Controllers
             return RedirectToAction("ManageUsers");
         }
 
-
+        // ========== LOGOUT ==========
         [HttpPost]
-        [HttpGet]
         public IActionResult Logout()
         {
             Response.Cookies.Delete("LastUser");
